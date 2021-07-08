@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from "react-native";
 
-export default function Timer({initialSeconds,textStyle}){
+export default function Timer({initialSeconds,textStyle,direction}){
 
     const formatTimer = number => `0${number}`.slice(-2);
 
@@ -17,7 +17,6 @@ export default function Timer({initialSeconds,textStyle}){
     }
 
     const [timer, setTimer]=React.useState(0)
-    const [active, setActive]=React.useState(true)
     const {hours, mins, secs} = getCounter(timer)
 
     React.useEffect(()=>{
@@ -26,15 +25,15 @@ export default function Timer({initialSeconds,textStyle}){
 
     React.useEffect(()=>{
         let interval = null
-        if(active){
+        if(timer != 0){
             interval = setInterval(() => {
-                setTimer(timer+1)
+                setTimer(direction=="up" ? timer+1 : timer-1)
             }, 1000);
         }else{
             clearInterval(interval)
         }
         return () =>  clearInterval(interval)
-    },[active,timer])
+    },[timer])
 
     return(<Text style={textStyle}>{hours&&`${hours}:`}{mins}:{secs}</Text>)
 }
