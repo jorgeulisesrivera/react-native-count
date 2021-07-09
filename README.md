@@ -23,7 +23,7 @@ up | down
 ## React-Native example
 
 ```js
-import Timer from 'react-native-count';
+import {Timer} from 'react-native-count';
 
 <Timer initialSeconds={120} textStyle={{color:"blue"}} direction={"up"}/>
 
